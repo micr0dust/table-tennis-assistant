@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+        //jquery
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous">
+        //bootstrap 4
+    </script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="style.css">
+    <meta name="google-site-verification" content="GXeTj8Y0KWTBlAZHADYsQ_cg6vMing5SV8AkWbjQB44" />
+    <title>桌球計分</title>
+</head>
+
+<body>
+    <nav id="navbar" class="navbar navbar-expand-md bg-dark navbar-dark text-white">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <button id="oAutoSay" class="btn btn-success" onclick="fnAutoSay()">自動發音[ON]</button>
+            </li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="row justify-content-between align-items-center">
+            <h1 id="player1" class="score">0</h1>
+            <h1 id="player2" class="score">0</h1>
+        </div>
+    </div>
+    <div><audio id="oSpeak"></audio></div>
+    <div id="oWordList" class="default"></div>
+    <script src="./script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+    <script>
+        const darkmode = new Darkmode();
+    </script>
+</body>
+
+</html>
