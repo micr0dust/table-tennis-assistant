@@ -6,17 +6,17 @@ let score2 = 0;
 let arrScore = [];
 let autoSay = true;
 let ballFirst = 0;
-let nballside = ballFirst;
+let nballside;
 
 function score2Fn() {
-    if (!ballFirst) return ballFirst = 2;
+    if (!ballFirst) return nballside = ballFirst = 2;
     score2++;
     arrScore.push({ "score1": score1, "score2": score2 });
     document.getElementById("player2").innerText = score2;
 }
 
 function score1Fn() {
-    if (!ballFirst) return ballFirst = 1;
+    if (!ballFirst) return nballside = ballFirst = 1;
     score1++;
     arrScore.push({ "score1": score1, "score2": score2 });
     document.getElementById("player1").innerText = score1;
@@ -40,6 +40,17 @@ function baller() {
     return nballside;
 }
 
+function colorball() {
+    if (nballside == 1) {
+        document.getElementById("player1").classList.add('text-primary');
+        document.getElementById("player2").classList.remove('text-primary');
+    }
+    if (nballside == 2) {
+        document.getElementById("player2").classList.add('text-primary');
+        document.getElementById("player1").classList.remove('text-primary');
+    }
+}
+
 window.addEventListener('click', function(e) {
     let posX = event.clientX;
     let maxX = document.body.clientWidth;
@@ -47,6 +58,7 @@ window.addEventListener('click', function(e) {
     let maxY = document.body.clientHeight;
     if ((maxX / posX > 2)) score1Fn();
     if ((maxX / posX < 2)) score2Fn();
+    colorball();
     if (autoSay) speak(oScore1.innerText + "比" + oScore2.innerText + ballside(nballside = baller()));
 }, false);
 
