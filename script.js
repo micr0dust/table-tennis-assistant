@@ -6,7 +6,23 @@ let score2 = 0;
 let arrScore = [];
 let autoSay = true;
 let ballFirst = 0;
-let nballside;
+let nballside = null;
+let turn = 2;
+let bstatus = true;
+
+function QRcode() {
+    bstatus = false;
+    Swal.fire({
+        title: '以QRcode分享',
+        html: '<div id="qrcode"></div>',
+        showCloseButton: true,
+        showCancelButton: false,
+        allowOutsideClick: false
+    }).then((result) => {
+        location.reload();
+    });
+    $('#qrcode').qrcode(location.href);
+}
 
 function score2Fn() {
     if (!ballFirst) return nballside = ballFirst = 2;
@@ -23,19 +39,19 @@ function score1Fn() {
 }
 
 function ballside() {
-    if ((score1 + score2) % 2 == 0 && nballside == 2) return "，右邊發球";
-    if ((score1 + score2) % 2 == 0 && nballside == 1) return "，左邊發球";
+    if ((score1 + score2) % turn == 0 && nballside == 2) return "，右邊發球";
+    if ((score1 + score2) % turn == 0 && nballside == 1) return "，左邊發球";
     return "";
 }
 
 function baller() {
     if (ballFirst == 1) {
-        if ((score1 + score2 - 2) % 4 == 0) return 2;
-        if ((score1 + score2) % 4 == 0) return 1;
+        if ((score1 + score2 - turn) % (turn * 2) == 0) return 2;
+        if ((score1 + score2) % (turn * 2) == 0) return 1;
     }
     if (ballFirst == 2) {
-        if ((score1 + score2 - 2) % 4 == 0) return 1;
-        if ((score1 + score2) % 4 == 0) return 2;
+        if ((score1 + score2 - turn) % (turn * 2) == 0) return 1;
+        if ((score1 + score2) % (turn * 2) == 0) return 2;
     }
     return nballside;
 }
@@ -52,14 +68,23 @@ function colorball() {
 }
 
 window.addEventListener('click', function(e) {
+    if (bstatus == false) return;
+    if (turn == 1 && (score1 - score2 == 2 || score2 - score1 == 2)) return speak(oScore1.innerText + "比" + oScore2.innerText);
+    if (turn == 2 && (score1 == 11 || score2 == 11)) return speak(oScore1.innerText + "比" + oScore2.innerText);
     let posX = event.clientX;
     let maxX = document.body.clientWidth;
     let posY = event.clientY;
     let maxY = document.body.clientHeight;
+    if (!(maxY / posY < 6)) return;
     if ((maxX / posX > 2)) score1Fn();
     if ((maxX / posX < 2)) score2Fn();
+    nballside = baller();
+    if (score1 == 10 && score2 == 10) turn = 1;
+    console.log(turn)
     colorball();
-    if (autoSay) speak(oScore1.innerText + "比" + oScore2.innerText + ballside(nballside = baller()));
+    if (turn == 1 && (score1 - score2 == 2 || score2 - score1 == 2)) return speak(oScore1.innerText + "比" + oScore2.innerText + "比賽結束");
+    if (turn == 2 && (score1 == 11 || score2 == 11)) return speak(oScore1.innerText + "比" + oScore2.innerText + "比賽結束");
+    if (autoSay) speak(oScore1.innerText + "比" + oScore2.innerText + ballside(nballside));
 }, false);
 
 //感謝分享! https://gist.github.com/Eotones/d67be7262856a79a77abeeccef455ebf
