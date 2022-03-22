@@ -197,14 +197,20 @@ document.addEventListener("touchend", function(e) {
             //no
             break;
         case 1:
+            //up
             if (arrScore.length == 0) location.reload();
-            let record = arrScore.pop();
-            score1 = record.score1;
-            score2 = record.score2;
+            let uprecord = arrScore.pop();
+            score1 = uprecord.score1;
+            score2 = uprecord.score2;
             refresh();
             break;
         case 2:
             //down
+            if (arrScore.length == 0) location.reload();
+            let downrecord = arrScore.pop();
+            score1 = downrecord.score1;
+            score2 = downrecord.score2;
+            refresh();
             break;
         case 3:
             //left
